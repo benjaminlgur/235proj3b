@@ -186,11 +186,18 @@ void LinkedList<T>::invert(){
 
 template<class T>
 void LinkedList<T>::testFunc(){
-   nodeSwap(head_ptr_, getNodeAt(4), getNodeAt(3));
+   //std::cout << getNodeAt(2)->getItem() << " is item 2 \n\n";
+   nodeSwap(head_ptr_, getNodeAt(3), getNodeAt(2));
 }
 
 
-
+template<class T>
+void LinkedList<T>::selectionSort(){
+   if(head_ptr_ == nullptr){ //incase of empty list.
+      return;
+   }
+   head_ptr_ = recursiveSelectionSort(head_ptr_);
+}
 
 
 
@@ -239,6 +246,37 @@ void LinkedList<T>::nodeSwap(Node<T>* head_of_list, Node<T>* min_node, Node<T>* 
    Node<T>* temp = min_node->getNext();
    min_node->setNext(head_of_list->getNext());
    head_of_list->setNext(temp);
+}
+
+
+template<class T>
+Node<T>* LinkedList<T>::recursiveSelectionSort(Node<T>* current_first_ptr){
+   //case of only single node
+   if(current_first_ptr->getNext() == nullptr)
+      return current_first_ptr;
+   
+   Node<T>* min_node = current_first_ptr; // will hold the minimum value.
+   Node<T>* node_before_min_node = nullptr;
+   Node<T>* cursor = nullptr;
+
+   for(cursor = current_first_ptr; cursor->getNext() != nullptr; cursor = cursor->getNext()){
+      if(cursor->getNext()->getItem() < min_node->getItem()){
+         min_node = cursor->getNext();
+         node_before_min_node = cursor;
+      }
+   } //end for
+   if(min_node != current_first_ptr)
+      nodeSwap(current_first_ptr, min_node, node_before_min_node);
+      
+   
+   //recursion
+   //if(min_node->getNext() != nullptr)
+      //current_first_ptr->setNext(recursiveSelectionSort(min_node->getNext()));
+   //current_first_ptr->setNext(recursiveSelectionSort(current_first_ptr->getNext()));
+   min_node->setNext(recursiveSelectionSort(min_node->getNext()));
+
+   //return current_first_ptr;
+   return min_node;
 }
 
 //  End of implementation file.

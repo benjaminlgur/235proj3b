@@ -35,7 +35,7 @@ public:
    /***************** PROJECT-SPECIFIC PUBLIC METHODS ****************/
 
    void invert();
-   void nodeSwap(Node<T>* head_of_list,Node<T>* min_node,Node<T>* node_before_min_node);
+   void selectionSort();
    void testFunc();
 
 
@@ -55,6 +55,8 @@ private:
 
    /***************** PROJECT-SPECIFIC PRIVATE METHODS ****************/
    void invertRest(Node<T>* current_first_ptr);
+   void nodeSwap(Node<T>* head_of_list,Node<T>* min_node,Node<T>* node_before_min_node);
+   Node<T>* recursiveSelectionSort(Node<T>* current_first_ptr);
    
 
 }; // end LinkedList
